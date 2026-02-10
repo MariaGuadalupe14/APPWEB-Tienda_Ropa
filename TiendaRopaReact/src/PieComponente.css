@@ -1,19 +1,21 @@
 .pieDiv {
-  background-color: black;
+  background-color: #000000;
   width: 100%;
   display: flex;
+  padding: 30px 40px;
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.25);
 }
-
 .pieIzqDiv {
-  color: white;
-  width: 50%;
+  color: #ffffff;
+  width: 45%;
   text-align: left;
-  padding-left: 20px;
+  font-size: 14px;
+  letter-spacing: 1px;
 }
-
 .pieDerDiv {
-  color: white;
-  width: 50%;
+  color: #ffffff;
+  width: 45%;
   text-align: right;
-  padding-right: 20px;
+  font-size: 14px;
+  letter-spacing: 1px;
 }

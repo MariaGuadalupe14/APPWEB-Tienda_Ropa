@@ -1,6 +1,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', system-ui, sans-serif;
-  background-color: var(--color-secundario);
-  color: var(--texto-oscuro);
+  background-color: #ffffff;
+  color: #111111;
+  line-height: 1.6;
 }
