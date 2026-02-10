@@ -1,0 +1,73 @@
+h1 {
+    color: rgb(2, 137, 155);
+}
+
+h2 {
+    color: rgb(85, 2, 153);
+}
+
+.Encabezado {
+    background-color: rgb(73, 80, 105);
+    width: 100%;
+    display: flex;
+}
+
+.logoDiv {
+    width: 25%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.logoDiv img {
+    width: 200px;
+}
+
+.menuDiv {
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.menuDiv ul {
+    width: 100%;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+    justify-content: center;
+    color: white;
+}
+
+.menuDiv ul li {
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.menuDiv ul li:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+
+.redesDiv {
+    width: 20%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.redesDiv ul {
+    list-style: none;
+    text-decoration: none;
+    display: flex;
+}
+
+.redesDiv img {
+    width: 32px;
+}
