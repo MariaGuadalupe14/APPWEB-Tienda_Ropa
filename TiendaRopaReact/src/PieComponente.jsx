@@ -13,6 +13,8 @@ function PieComponente() {
       <div className="pieDerDiv">
         <h4>Informes:</h4>
         <p>Maria Guadalupe Clemente Tellez</p>
+        <p>Sheila Yuridia Cruz Badillo</p>
+        <p>Luz Jaquelin Soto Romero</p>
         </div>
       </div>
   );
