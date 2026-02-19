@@ -1,0 +1,56 @@
+﻿.acercaDeDiv {
+  width: min(1080px, 100%);
+}
+
+.acercaDeHero {
+  background: linear-gradient(120deg, #121730 0%, #243158 100%);
+  color: #fff;
+  border-radius: 22px;
+  padding: 1.3rem;
+}
+
+.acercaDeEtiqueta {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+.acercaDeHero h2 {
+  margin: 0;
+}
+
+.acercaDeLead {
+  margin-top: 0.75rem;
+  color: #dde3f5;
+  max-width: 760px;
+}
+
+.acercaDeGrid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.acercaDeCard {
+  background: #fff;
+  border: 1px solid #e6e8ef;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 10px 24px rgba(25, 28, 52, 0.08);
+}
+
+.acercaDeCard h3 {
+  margin: 0 0 0.5rem;
+}
+
+.acercaDeCard p,
+.acercaDeCard ul {
+  margin: 0;
+  color: #52607b;
+}

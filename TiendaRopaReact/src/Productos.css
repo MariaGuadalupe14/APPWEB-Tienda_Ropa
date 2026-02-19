@@ -1,0 +1,56 @@
+﻿.productos {
+  width: min(1200px, 100%);
+}
+
+.productos h2 {
+  margin: 0 0 1.25rem;
+  font-size: 1.8rem;
+}
+
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.card-producto {
+  background: #fff;
+  border: 1px solid #e6e8ef;
+  border-radius: 18px;
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  box-shadow: 0 10px 24px rgba(25, 28, 52, 0.08);
+}
+
+.card-producto img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.card-producto h3 {
+  margin: 0;
+  color: #11162f;
+}
+
+.card-producto p {
+  margin: 0;
+  color: #52607b;
+}
+
+.card-producto span {
+  color: #b53f2d;
+  font-weight: 700;
+}
+
+.card-producto button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.6rem 0.9rem;
+  background: #11162f;
+  color: #fff;
+  cursor: pointer;
+}

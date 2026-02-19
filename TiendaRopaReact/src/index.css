@@ -1,7 +1,19 @@
+﻿:root {
+  --bg: #f3f5fb;
+  --text: #121730;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: 'Segoe UI', system-ui, sans-serif;
-  background-color: #ffffff;
-  color: #111111;
-  line-height: 1.6;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 0%, #d9e4ff 0%, transparent 26%),
+    radial-gradient(circle at 92% 0%, #ffd8d2 0%, transparent 22%),
+    var(--bg);
+  line-height: 1.5;
 }

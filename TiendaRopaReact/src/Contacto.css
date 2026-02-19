@@ -1,0 +1,40 @@
+﻿.contacto {
+  width: min(760px, 100%);
+  background: #fff;
+  border: 1px solid #e6e8ef;
+  border-radius: 20px;
+  padding: 1.25rem;
+  box-shadow: 0 10px 24px rgba(25, 28, 52, 0.08);
+}
+
+.contacto h2 {
+  margin: 0;
+}
+
+.contacto p {
+  margin: 0.4rem 0 1rem;
+  color: #52607b;
+}
+
+.form-contacto {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.form-contacto input,
+.form-contacto textarea {
+  border: 1px solid #d8deea;
+  border-radius: 12px;
+  padding: 0.72rem 0.8rem;
+  font: inherit;
+}
+
+.form-contacto button {
+  width: fit-content;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  background: #b53f2d;
+  color: #fff;
+  cursor: pointer;
+}
