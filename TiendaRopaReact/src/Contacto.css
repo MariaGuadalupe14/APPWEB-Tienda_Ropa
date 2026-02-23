@@ -1,40 +1,78 @@
-﻿.contacto {
-  width: min(760px, 100%);
-  background: #fff;
-  border: 1px solid #e6e8ef;
-  border-radius: 20px;
-  padding: 1.25rem;
-  box-shadow: 0 10px 24px rgba(25, 28, 52, 0.08);
+.contacto {
+  width: min(780px, 100%);
+  margin: 0 auto;
+  padding: clamp(1.1rem, 3vw, 1.8rem);
+  border-radius: 24px;
+  border: 1px solid #e4e4e4;
+  background:
+    radial-gradient(circle at 100% 0%, #f3e4d2 0%, transparent 36%),
+    linear-gradient(165deg, #ffffff 0%, #f6f6f6 100%);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .contacto h2 {
   margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #121212;
 }
 
 .contacto p {
-  margin: 0.4rem 0 1rem;
-  color: #52607b;
+  margin: 0.45rem auto 1rem;
+  color: #5d5d5d;
+  max-width: 480px;
 }
 
 .form-contacto {
+  width: min(530px, 100%);
+  margin: 0 auto;
   display: grid;
-  gap: 0.8rem;
+  gap: 0.82rem;
+  text-align: left;
 }
 
 .form-contacto input,
 .form-contacto textarea {
-  border: 1px solid #d8deea;
+  width: 100%;
+  border: 1px solid #d6d6d6;
   border-radius: 12px;
-  padding: 0.72rem 0.8rem;
+  padding: 0.78rem 0.85rem;
   font: inherit;
+  color: #1b1b1b;
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-contacto textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-contacto input::placeholder,
+.form-contacto textarea::placeholder {
+  color: #8a8a8a;
+}
+
+.form-contacto input:focus,
+.form-contacto textarea:focus {
+  border-color: #c29768;
+  box-shadow: 0 0 0 3px rgba(194, 151, 104, 0.2);
 }
 
 .form-contacto button {
-  width: fit-content;
+  justify-self: center;
   border: 0;
   border-radius: 999px;
-  padding: 0.6rem 1rem;
-  background: #b53f2d;
+  padding: 0.64rem 1.2rem;
+  background: linear-gradient(120deg, #111111, #2a2a2a);
   color: #fff;
   cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-contacto button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }

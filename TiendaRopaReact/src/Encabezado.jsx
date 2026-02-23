@@ -7,7 +7,7 @@ import tiktokImg from "./assets/redes/tik-tok.png";
 import whatsappImg from "./assets/redes/whatsapp.png";
 import "./Encabezado.css";
 
-const MENU_ITEMS = ["Inicio", "AcercaDe", "Contacto", "Sucursales", "Galeria"];
+const MENU_ITEMS = ["Inicio", "AcercaDe", "Contacto", "Sucursales"];
 
 const CATEGORIAS = ["Todas", "Mujer", "Hombre", "Ninos", "Accesorios"];
 
@@ -40,10 +40,7 @@ function Encabezado({ cambiarVista, vistaActual, cambiarCategoria }) {
             </li>
           ))}
 
-          <li
-            className="categoriaMenu"
-            onMouseLeave={() => setMenuAbierto(false)}
-          >
+          <li className="categoriaMenu">
             <button
               type="button"
               className={vistaActual === "Productos" ? "activo" : ""}

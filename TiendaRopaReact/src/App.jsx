@@ -1,28 +1,28 @@
 import { useState } from "react";
 import ContenedorTarjeta from "./ContenedorTarjeta";
 import Encabezado from "./Encabezado";
-import PromosContenido from "./PromosContenido";
 import PieComponente from "./PieComponente";
+import "./App.css";
 
 function App() {
   const [vista, setVista] = useState("Inicio");
   const [categoria, setCategoria] = useState("Todas");
-  const esInicio = vista === "Inicio";
 
   return (
-    <div>
+    <div className="appLayout">
       <Encabezado
         cambiarVista={setVista}
         vistaActual={vista}
         cambiarCategoria={setCategoria}
       />
-      <ContenedorTarjeta
-        vista={vista}
-        categoria={categoria}
-        cambiarVista={setVista}
-        cambiarCategoria={setCategoria}
-      />
-      {esInicio && <PromosContenido />}
+      <div className="contenidoPrincipal">
+        <ContenedorTarjeta
+          vista={vista}
+          categoria={categoria}
+          cambiarVista={setVista}
+          cambiarCategoria={setCategoria}
+        />
+      </div>
       <PieComponente />
     </div>
   );

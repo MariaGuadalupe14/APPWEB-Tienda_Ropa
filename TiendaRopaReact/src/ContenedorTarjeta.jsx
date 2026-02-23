@@ -4,7 +4,6 @@ import AcercaDe from "./AcercaDe";
 import Productos from "./Productos";
 import Contacto from "./Contacto";
 import Sucursales from "./Sucursales";
-import Galeria from "./Galeria";
 import "./ContenedorTarjeta.css";
 
 const TENDENCIAS = [
@@ -40,10 +39,12 @@ function ContenedorTarjeta({ vista, categoria, cambiarVista, cambiarCategoria })
     Productos: <Productos categoria={categoria} />,
     Contacto: <Contacto />,
     Sucursales: <Sucursales />,
-    Galeria: <Galeria />,
   };
 
-  return <main className="contenedorDiv">{vistas[vista] || vistas.Inicio}</main>;
+  const claseContenedor =
+    vista === "Inicio" ? "contenedorDiv inicioCompleto" : "contenedorDiv";
+
+  return <main className={claseContenedor}>{vistas[vista] || vistas.Inicio}</main>;
 }
 
 function Inicio({ cambiarVista, cambiarCategoria }) {

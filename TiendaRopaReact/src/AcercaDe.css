@@ -1,56 +1,87 @@
-﻿.acercaDeDiv {
+.acercaDeDiv {
   width: min(1080px, 100%);
+  margin: 0 auto;
+  min-height: auto;
 }
 
 .acercaDeHero {
-  background: linear-gradient(120deg, #121730 0%, #243158 100%);
+  border-radius: 24px;
+  padding: clamp(1rem, 2.2vw, 1.4rem);
   color: #fff;
-  border-radius: 22px;
-  padding: 1.3rem;
+  background:
+    linear-gradient(130deg, rgba(9, 9, 9, 0.95) 0%, rgba(29, 29, 29, 0.9) 55%, rgba(71, 54, 35, 0.88) 100%);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, 0.22);
 }
 
 .acercaDeEtiqueta {
   display: inline-block;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  margin-bottom: 0.55rem;
+  padding: 0.26rem 0.68rem;
   border-radius: 999px;
-  padding: 0.25rem 0.6rem;
-  margin-bottom: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #f8e5cf;
 }
 
 .acercaDeHero h2 {
   margin: 0;
+  font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+  line-height: 1.1;
 }
 
 .acercaDeLead {
-  margin-top: 0.75rem;
-  color: #dde3f5;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
   max-width: 760px;
+  color: #ececec;
+  font-size: 1rem;
 }
 
 .acercaDeGrid {
-  margin-top: 1rem;
+  margin-top: 0.8rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.75rem;
 }
 
 .acercaDeCard {
-  background: #fff;
-  border: 1px solid #e6e8ef;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
   border-radius: 16px;
-  padding: 1rem;
-  box-shadow: 0 10px 24px rgba(25, 28, 52, 0.08);
+  padding: 0.82rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.acercaDeCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.12);
 }
 
 .acercaDeCard h3 {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.55rem;
+  color: #171717;
 }
 
 .acercaDeCard p,
 .acercaDeCard ul {
   margin: 0;
-  color: #52607b;
+  color: #575757;
+}
+
+.acercaDeCard ul {
+  padding-left: 1.05rem;
+}
+
+.acercaDeCard li + li {
+  margin-top: 0.3rem;
+}
+
+@media (max-width: 700px) {
+  .acercaDeHero {
+    border-radius: 18px;
+  }
 }

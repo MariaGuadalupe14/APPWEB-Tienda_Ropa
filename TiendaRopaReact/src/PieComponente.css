@@ -1,18 +1,30 @@
-﻿.pieDiv {
-  margin-top: 1.5rem;
-  background: #11162f;
-  color: #cfd6eb;
+.pieDiv {
+  margin-top: 0.55rem;
+  padding: 1.3rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-  padding: 1.3rem;
+  gap: 1.1rem;
+  background:
+    linear-gradient(180deg, #111111 0%, #090909 100%);
+  border-top: 1px solid #242424;
+  color: #d8d8d8;
+}
+
+.pieBloque {
+  padding: 0.85rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .pieBloque h4 {
-  margin: 0 0 0.4rem;
-  color: #fff;
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: #ffffff;
+  letter-spacing: 0.01em;
 }
 
 .pieBloque p {
   margin: 0.3rem 0;
+  color: #c8c8c8;
 }

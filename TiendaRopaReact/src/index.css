@@ -1,6 +1,10 @@
-﻿:root {
-  --bg: #f3f5fb;
-  --text: #121730;
+:root {
+  --bg: #f2f2f2;
+  --text: #131313;
+  --negro-base: #0b0b0b;
+  --negro-secundario: #171717;
+  --texto-claro: #f5f5f5;
+  --acento: #d7a46b;
 }
 
 * {
@@ -12,8 +16,8 @@ body {
   font-family: "Segoe UI", system-ui, sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at 12% 0%, #d9e4ff 0%, transparent 26%),
-    radial-gradient(circle at 92% 0%, #ffd8d2 0%, transparent 22%),
+    radial-gradient(circle at 12% 0%, #f8e4cf 0%, transparent 26%),
+    radial-gradient(circle at 92% 0%, #ececec 0%, transparent 24%),
     var(--bg);
   line-height: 1.5;
 }
