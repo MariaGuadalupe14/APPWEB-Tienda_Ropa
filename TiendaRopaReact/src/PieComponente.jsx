@@ -15,7 +15,7 @@ function PieComponente() {
       </div>
       <div className="pieBloque">
         <h4>Equipo</h4>
-        <p>Maria, Karen y Sheila</p>
+        <p>Maria, Jaque y Sheila</p>
       </div>
     </footer>
   );

@@ -1,4 +1,5 @@
-﻿import PropTypes from "prop-types";
+import { useState } from "react";
+import PropTypes from "prop-types";
 import miLogo from "./assets/logo.png";
 import facebookImg from "./assets/redes/facebook.png";
 import instagramImg from "./assets/redes/instagram.png";
@@ -6,16 +7,19 @@ import tiktokImg from "./assets/redes/tik-tok.png";
 import whatsappImg from "./assets/redes/whatsapp.png";
 import "./Encabezado.css";
 
-const MENU_ITEMS = [
-  "Inicio",
-  "AcercaDe",
-  "Productos",
-  "Contacto",
-  "Sucursales",
-  "Galeria",
-];
+const MENU_ITEMS = ["Inicio", "AcercaDe", "Contacto", "Sucursales", "Galeria"];
 
-function Encabezado({ cambiarVista, vistaActual }) {
+const CATEGORIAS = ["Todas", "Mujer", "Hombre", "Ninos", "Accesorios"];
+
+function Encabezado({ cambiarVista, vistaActual, cambiarCategoria }) {
+  const [menuAbierto, setMenuAbierto] = useState(false);
+
+  const seleccionarCategoria = (categoria) => {
+    cambiarCategoria(categoria);
+    cambiarVista("Productos");
+    setMenuAbierto(false);
+  };
+
   return (
     <header className="encabezado">
       <div className="logoDiv">
@@ -35,6 +39,36 @@ function Encabezado({ cambiarVista, vistaActual }) {
               </button>
             </li>
           ))}
+
+          <li
+            className="categoriaMenu"
+            onMouseLeave={() => setMenuAbierto(false)}
+          >
+            <button
+              type="button"
+              className={vistaActual === "Productos" ? "activo" : ""}
+              onClick={() => setMenuAbierto((estadoPrevio) => !estadoPrevio)}
+              aria-haspopup="true"
+              aria-expanded={menuAbierto}
+            >
+              Categorias
+            </button>
+
+            {menuAbierto && (
+              <ul className="submenuCategorias" aria-label="Categorias">
+                {CATEGORIAS.map((categoria) => (
+                  <li key={categoria}>
+                    <button
+                      type="button"
+                      onClick={() => seleccionarCategoria(categoria)}
+                    >
+                      {categoria}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
         </ul>
       </nav>
 
@@ -59,6 +93,7 @@ function Encabezado({ cambiarVista, vistaActual }) {
 Encabezado.propTypes = {
   cambiarVista: PropTypes.func.isRequired,
   vistaActual: PropTypes.string.isRequired,
+  cambiarCategoria: PropTypes.func.isRequired,
 };
 
 export default Encabezado;

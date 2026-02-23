@@ -23,6 +23,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
+  align-items: center;
 }
 
 .menuDiv button {
@@ -39,6 +40,31 @@
 .menuDiv button.activo {
   background: #121730;
   color: #fff;
+}
+
+.categoriaMenu {
+  position: relative;
+}
+
+.submenuCategorias {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  min-width: 170px;
+  background: #fff;
+  border: 1px solid #dfe5f2;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(18, 23, 48, 0.12);
+  padding: 0.4rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.submenuCategorias button {
+  width: 100%;
+  border-radius: 9px;
+  text-align: left;
+  padding: 0.5rem 0.62rem;
 }
 
 .redesDiv {
@@ -69,5 +95,16 @@
   .menuDiv ul,
   .redesDiv {
     justify-content: center;
+  }
+
+  .categoriaMenu {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .submenuCategorias {
+    left: 50%;
+    transform: translateX(-50%);
   }
 }

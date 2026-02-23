@@ -1,49 +1,121 @@
-﻿.contenedorDiv {
+.contenedorDiv {
   width: min(1200px, calc(100% - 2rem));
   margin: 1.1rem auto;
   padding: 0.6rem;
 }
 
-.inicioGrid {
+.inicioSeccion {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
 }
 
-.tarjetaDiv {
-  border-radius: 18px;
-  padding: 0.8rem;
-  background: #fff;
+.carruselHero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  min-height: clamp(360px, 60vw, 560px);
   border: 1px solid #e6e8ef;
-  box-shadow: 0 10px 24px rgba(25, 28, 52, 0.08);
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 14px 30px rgba(25, 28, 52, 0.12);
+  background: #111;
+}
+
+.slideFondo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.8s ease, transform 5s ease;
+}
+
+.slideFondo.activo {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.overlayHero {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(110deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.2) 58%, rgba(0, 0, 0, 0.1) 100%);
+}
+
+.contenidoHero {
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+  color: #fff;
+  padding: clamp(1.2rem, 4vw, 2.4rem);
+  display: grid;
   gap: 0.65rem;
 }
 
-.tarjetaDiv img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-.tarjetaDiv h3 {
+.subtituloHero {
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffd7b6;
 }
 
-.tarjetaDiv p {
+.contenidoHero h1 {
   margin: 0;
-  color: #52607b;
+  font-size: clamp(2rem, 5vw, 4.1rem);
+  line-height: 1;
 }
 
-.tarjetaDiv button {
-  margin-top: auto;
-  width: fit-content;
+.contenidoHero p {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  color: #f2f2f2;
+}
+
+.heroAcciones {
+  margin-top: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.heroAcciones button {
   border: 0;
   border-radius: 999px;
-  padding: 0.55rem 0.85rem;
-  background: #b53f2d;
-  color: #fff;
+  padding: 0.58rem 1rem;
   cursor: pointer;
+  font-weight: 600;
+}
+
+.heroAcciones button:first-child {
+  background: #fff;
+  color: #111;
+}
+
+.heroAcciones button:last-child {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.indicadoresHero {
+  position: absolute;
+  z-index: 2;
+  left: clamp(1rem, 4vw, 2.4rem);
+  bottom: clamp(1rem, 4vw, 1.8rem);
+  display: flex;
+  gap: 0.4rem;
+}
+
+.indicadoresHero button {
+  border: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+}
+
+.indicadoresHero button.activo {
+  background: #fff;
 }
