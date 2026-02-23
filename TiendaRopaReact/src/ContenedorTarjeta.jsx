@@ -8,25 +8,25 @@ import "./ContenedorTarjeta.css";
 
 const TENDENCIAS = [
   {
-    titulo: "New In",
-    texto: "Looks frescos para esta temporada. Descubre prendas con estilo y comodidad.",
+    titulo: "Novedades",
+    texto: "Estilos frescos para esta temporada. Descubre prendas con estilo y comodidad.",
     categoria: "Mujer",
     imagen:
       "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=80",
   },
   {
-    titulo: "Street Style",
+    titulo: "Estilo urbano",
     texto: "Prendas urbanas para hombre con cortes modernos y combinaciones faciles.",
     categoria: "Hombre",
     imagen:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1600&q=80",
+      "https://ae-pic-a1.aliexpress-media.com/kf/H37210870b6e8471282b1fdd46fa7f2170.jpg",
   },
   {
-    titulo: "Tendencias Ninos",
-    texto: "Outfits versatiles para el dia a dia con telas suaves y resistentes.",
-    categoria: "Ninos",
+    titulo: "Tendencias para niños",
+    texto: "Conjuntos versatiles para el dia a dia con telas suaves y resistentes.",
+    categoria: "Niños",
     imagen:
-      "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=1600&q=80",
+      "https://r.fashionunited.com/Fag7glXsKdA_ff8lcyvlHBHThG-j8h-4kiTVTj-8c9U/resize:fit:1200:630:0/gravity:ce/quality:70/aHR0cHM6Ly9mYXNoaW9udW5pdGVkLmNvbS9pbWcvdXBsb2FkLzIwMjMvMTIvMTMvZHNjLTU2MjEtNzRjbnBrZ3gtMjAyMy0wMi0wMS16cDZuZDNrdC0yMDIzLTEyLTEzLmpwZWc.jpeg",
   },
 ];
 
@@ -80,7 +80,7 @@ function Inicio({ cambiarVista, cambiarCategoria }) {
         <div className="overlayHero" />
 
         <div className="contenidoHero">
-          <p className="subtituloHero">Tienda en tendencia</p>
+          <p className="subtituloHero">Moda en tendencia</p>
           <h1>{slideActual.titulo}</h1>
           <p>{slideActual.texto}</p>
           <div className="heroAcciones">
@@ -100,7 +100,7 @@ function Inicio({ cambiarVista, cambiarCategoria }) {
               type="button"
               className={indice === indiceActual ? "activo" : ""}
               onClick={() => setIndiceActual(indice)}
-              aria-label={`Slide ${indice + 1}`}
+              aria-label={`Diapositiva ${indice + 1}`}
             />
           ))}
         </div>
