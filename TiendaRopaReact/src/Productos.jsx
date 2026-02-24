@@ -27,11 +27,11 @@ const PRODUCTOS = [
   { nombre: "Sueter Cuello Alto", precio: "$679 MXN", desc: "Calidez con estilo.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/61D5c2yUQBL._AC_UL480_FMwebp_QL65_.jpg" },
   { nombre: "Camisa Manga Corta", precio: "$319 MXN", desc: "Casual y ligera.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/61t8u2n1cXL._AC_UL480_FMwebp_QL65_.jpg" },
   { nombre: "Leggings", precio: "$289 MXN", desc: "Comodos y elasticos.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/71Kf6k2sQYL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Chalina", precio: "$199 MXN", desc: "Suave y ligera.", categoria: "Accesorios", img: "https://m.media-amazon.com/images/I/61b6Vn8E2tL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Gorra Basica", precio: "$159 MXN", desc: "Accesorio urbano.", categoria: "Accesorios", img: "https://m.media-amazon.com/images/I/61qH9hVYLOL._AC_UL480_FMwebp_QL65_.jpg" },
+  { nombre: "Chalina", precio: "$199 MXN", desc: "Suave y ligera.", categoria: "Accesorios", img: "https://m.media-amazon.com/images/I/71FZTX1ZhnL._UF894,1000_QL80_.jpg" },
+  { nombre: "Gorra Basica", precio: "$159 MXN", desc: "Accesorio urbano.", categoria: "Accesorios", img: "https://www.sartex.com.mx/cdn/shop/products/G001AM001.jpg?v=1670956155" },
   { nombre: "Cinturon Negro", precio: "$219 MXN", desc: "Acabado elegante.", categoria: "Accesorios", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQCFghQWzjic6sm_5RC6Nlq6KWR8HA3X-nKQ&s" },
-  { nombre: "Bolso Tote", precio: "$499 MXN", desc: "Amplio y practico.", categoria: "Accesorios", img: "https://m.media-amazon.com/images/I/61B3o0m8tPL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Calcetines Pack", precio: "$149 MXN", desc: "Comodos todo el dia.", categoria: "Accesorios", img: "https://m.media-amazon.com/images/I/61m8b1Y4zXL._AC_UL480_FMwebp_QL65_.jpg" },
+  { nombre: "Bolso Tote", precio: "$499 MXN", desc: "Amplio y practico.", categoria: "Accesorios", img: "https://www.charleskeith.com/dw/image/v2/BCWJ_PRD/on/demandware.static/-/Sites-ck-products/default/dw6dd02ed4/images/hi-res/2024-L6-CK2-30671662-K5-1.jpg?sw=756&sh=1008" },
+  { nombre: "Calcetines Pack", precio: "$149 MXN", desc: "Comodos todo el dia.", categoria: "Accesorios", img: "https://detqhtv6m6lzl.cloudfront.net/HCLContenido/producto/FullImage/7506572235084-1.jpg" },
 ];
 
 function Productos({ categoria }) {
