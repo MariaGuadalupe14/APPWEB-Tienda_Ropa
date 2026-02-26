@@ -49,6 +49,12 @@ function ContenedorTarjeta({ vista, categoria, cambiarVista, cambiarCategoria })
 
 function Inicio({ cambiarVista, cambiarCategoria }) {
   const [indiceActual, setIndiceActual] = useState(0);
+  const [clima, setClima] = useState(null);
+  const [cargandoClima, setCargandoClima] = useState(true);
+  const [errorClima, setErrorClima] = useState("");
+  const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
+  const lat = 20.278673257056912;
+  const lng = -97.96470248658306;
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -57,6 +63,37 @@ function Inicio({ cambiarVista, cambiarCategoria }) {
 
     return () => clearInterval(intervalo);
   }, []);
+
+  useEffect(() => {
+    if (!API_KEY) {
+      setErrorClima("Configura VITE_OPENWEATHER_API_KEY en tu .env");
+      setCargandoClima(false);
+      return;
+    }
+
+    const controller = new AbortController();
+
+    fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric&lang=es`,
+      { signal: controller.signal }
+    )
+      .then((res) => {
+        if (!res.ok) throw new Error("No se pudo consultar el clima");
+        return res.json();
+      })
+      .then((data) => {
+        setClima(data);
+        setErrorClima("");
+      })
+      .catch((error) => {
+        if (error.name !== "AbortError") {
+          setErrorClima("No se pudo obtener el clima");
+        }
+      })
+      .finally(() => setCargandoClima(false));
+
+    return () => controller.abort();
+  }, [API_KEY]);
 
   const slideActual = TENDENCIAS[indiceActual];
 
@@ -83,6 +120,18 @@ function Inicio({ cambiarVista, cambiarCategoria }) {
           <p className="subtituloHero">Moda en tendencia</p>
           <h1>{slideActual.titulo}</h1>
           <p>{slideActual.texto}</p>
+          <div className="climaInicio" aria-live="polite">
+            {cargandoClima && <p>Cargando clima...</p>}
+            {!cargandoClima && errorClima && <p>{errorClima}</p>}
+            {!cargandoClima && !errorClima && clima && (
+              <>
+                <p>
+                  {clima.name}: {Math.round(clima.main.temp)} C
+                </p>
+                <p>{clima.weather?.[0]?.description}</p>
+              </>
+            )}
+          </div>
           <div className="heroAcciones">
             <button type="button" onClick={() => abrirCategoria(slideActual.categoria)}>
               Ver {slideActual.categoria}

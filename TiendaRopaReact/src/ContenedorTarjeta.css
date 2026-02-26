@@ -78,6 +78,23 @@
   color: #f2f2f2;
 }
 
+.climaInicio {
+  margin-top: 0.35rem;
+  width: fit-content;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  padding: 0.45rem 0.7rem;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.climaInicio p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #f6f6f6;
+}
+
 .heroAcciones {
   margin-top: 0.4rem;
   display: flex;
