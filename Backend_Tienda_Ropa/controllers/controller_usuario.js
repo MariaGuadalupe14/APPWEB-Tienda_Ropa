@@ -29,7 +29,7 @@ module.exports = {
 
             const nuevoUsuario = await usuario.create({
                 ...buildUserPayload(req.body),
-                rol: req.user?.rol === 'admin' && req.body.rol ? req.body.rol : 'cliente',
+                rol: req.body.rol || 'cliente',
                 activo: typeof req.body.activo === 'boolean' ? req.body.activo : true,
                 fecha_registro: req.body.fecha_registro || new Date()
             });

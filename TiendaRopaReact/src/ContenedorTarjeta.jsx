@@ -4,6 +4,14 @@ import AcercaDe from "./AcercaDe";
 import Productos from "./Productos";
 import Contacto from "./Contacto";
 import Sucursales from "./Sucursales";
+import Login from "./Login";
+import RegistrarUsuarios from "./RegistrarUsuarios";
+import CategoriasAdmin from "./CategoriasAdmin";
+import ProductosAdmin from "./ProductosAdmin";
+import UsuariosAdmin from "./UsuariosAdmin";
+import Carritos from "./Carritos";
+import Pedidos from "./Pedidos";
+import { useAuth } from "./AuthContext";
 import "./ContenedorTarjeta.css";
 
 const TENDENCIAS = [
@@ -22,15 +30,17 @@ const TENDENCIAS = [
       "https://ae-pic-a1.aliexpress-media.com/kf/H37210870b6e8471282b1fdd46fa7f2170.jpg",
   },
   {
-    titulo: "Tendencias para niños",
+    titulo: "Tendencias para ninos",
     texto: "Conjuntos versatiles para el dia a dia con telas suaves y resistentes.",
-    categoria: "Niños",
+    categoria: "Ninos",
     imagen:
       "https://r.fashionunited.com/Fag7glXsKdA_ff8lcyvlHBHThG-j8h-4kiTVTj-8c9U/resize:fit:1200:630:0/gravity:ce/quality:70/aHR0cHM6Ly9mYXNoaW9udW5pdGVkLmNvbS9pbWcvdXBsb2FkLzIwMjMvMTIvMTMvZHNjLTU2MjEtNzRjbnBrZ3gtMjAyMy0wMi0wMS16cDZuZDNrdC0yMDIzLTEyLTEzLmpwZWc.jpeg",
   },
 ];
 
 function ContenedorTarjeta({ vista, categoria, cambiarVista, cambiarCategoria }) {
+  const { isAdmin, isLoggedIn } = useAuth();
+
   const vistas = {
     Inicio: (
       <Inicio cambiarVista={cambiarVista} cambiarCategoria={cambiarCategoria} />
@@ -39,6 +49,13 @@ function ContenedorTarjeta({ vista, categoria, cambiarVista, cambiarCategoria })
     Productos: <Productos categoria={categoria} />,
     Contacto: <Contacto />,
     Sucursales: <Sucursales />,
+    Login: <Login cambiarVista={cambiarVista} />,
+    RegistrarUsuarios: <RegistrarUsuarios cambiarVista={cambiarVista} />,
+    CategoriasAdmin: isAdmin ? <CategoriasAdmin /> : <Bloqueo titulo="Categorias" cambiarVista={cambiarVista} />,
+    ProductosAdmin: isAdmin ? <ProductosAdmin /> : <Bloqueo titulo="Productos" cambiarVista={cambiarVista} />,
+    Usuarios: isAdmin ? <UsuariosAdmin /> : <Bloqueo titulo="Usuarios" cambiarVista={cambiarVista} />,
+    Carritos: isLoggedIn ? <Carritos /> : <Bloqueo titulo="Carritos" cambiarVista={cambiarVista} />,
+    Pedidos: isLoggedIn ? <Pedidos /> : <Bloqueo titulo="Pedidos" cambiarVista={cambiarVista} />,
   };
 
   const claseContenedor =
@@ -158,6 +175,20 @@ function Inicio({ cambiarVista, cambiarCategoria }) {
   );
 }
 
+function Bloqueo({ titulo, cambiarVista }) {
+  return (
+    <section className="panelVacio">
+      <div>
+        <h2>{titulo}</h2>
+        <p>Necesitas iniciar sesion con la cuenta correcta para entrar a este apartado.</p>
+        <button type="button" onClick={() => cambiarVista("Login")}>
+          Ir a login
+        </button>
+      </div>
+    </section>
+  );
+}
+
 ContenedorTarjeta.propTypes = {
   vista: PropTypes.string.isRequired,
   categoria: PropTypes.string.isRequired,
@@ -168,6 +199,11 @@ ContenedorTarjeta.propTypes = {
 Inicio.propTypes = {
   cambiarVista: PropTypes.func.isRequired,
   cambiarCategoria: PropTypes.func.isRequired,
+};
+
+Bloqueo.propTypes = {
+  titulo: PropTypes.string.isRequired,
+  cambiarVista: PropTypes.func.isRequired,
 };
 
 export default ContenedorTarjeta;
