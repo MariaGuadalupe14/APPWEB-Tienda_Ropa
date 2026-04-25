@@ -166,8 +166,72 @@
   padding: 2rem;
 }
 
+.resumenCompraCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: linear-gradient(135deg, #131313, #242038);
+  color: #fff;
+  border-radius: 28px;
+  padding: 1.5rem;
+  box-shadow: 0 18px 42px rgba(18, 18, 18, 0.16);
+}
+
+.resumenCompraCard h3 {
+  margin: 0.2rem 0 0.35rem;
+}
+
+.resumenCompraCard p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.resumenCompraEtiqueta {
+  color: #ffcf9d !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resumenCompraDatos {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 140px;
+}
+
+.resumenCompraDatos span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.85rem;
+}
+
+.resumenCompraDatos strong {
+  font-size: 1.5rem;
+}
+
+.botonComprar {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.95rem 1.6rem;
+  background: #ff8d4d;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.botonComprar:hover {
+  background: #ff7430;
+}
+
 @media (max-width: 960px) {
   .crudGrid {
     grid-template-columns: 1fr;
+  }
+
+  .resumenCompraCard {
+    align-items: start;
   }
 }

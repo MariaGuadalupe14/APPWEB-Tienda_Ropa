@@ -54,6 +54,26 @@ function Carritos() {
     cargarDatos();
   }, [isAdmin]);
 
+  const carritosVisibles = isAdmin
+    ? carritos
+    : carritos.filter((item) => Number(item.id_usuario) === Number(usuario?.id));
+
+  const detallesVisibles = isAdmin
+    ? detalles
+    : detalles.filter((detalle) =>
+        carritosVisibles.some((carrito) => Number(carrito.id) === Number(detalle.id_carrito))
+      );
+
+  const carritoPendiente = !isAdmin
+    ? carritosVisibles.find((item) => item.estado === "pendiente")
+    : null;
+
+  const detallesPendientes = carritoPendiente
+    ? detallesVisibles.filter(
+        (detalle) => Number(detalle.id_carrito) === Number(carritoPendiente.id)
+      )
+    : [];
+
   const handleCartChange = ({ target }) => {
     setCartForm((prev) => ({ ...prev, [target.name]: target.value }));
   };
@@ -66,13 +86,10 @@ function Carritos() {
     event.preventDefault();
     try {
       const payload = {
+        id_usuario: isAdmin ? Number(cartForm.id_usuario) : Number(usuario?.id),
         total: Number(cartForm.total),
         estado: cartForm.estado,
       };
-
-      if (isAdmin) {
-        payload.id_usuario = Number(cartForm.id_usuario);
-      }
 
       if (carritoEditando) {
         await api.put(`/carrito/${carritoEditando.id}`, payload);
@@ -185,7 +202,7 @@ function Carritos() {
   const titulo = isAdmin ? "Gestion de carritos" : "Mi carrito";
   const descripcion = isAdmin
     ? "Administra carritos y su detalle."
-    : "Consulta tus productos agregados y genera tu pedido.";
+    : "Aqui se guardan los productos que vas agregando desde la tienda. Cuando estes lista, genera tu pedido desde este apartado.";
 
   return (
     <section className="panelAdmin">
@@ -194,10 +211,15 @@ function Carritos() {
           <h2>{titulo}</h2>
           <p>{descripcion}</p>
         </div>
-        <span className="panelBadge">{carritos.length} carritos</span>
+        <span className="panelBadge">{carritosVisibles.length} carritos</span>
       </div>
 
       {mensaje && <p className="mensajePanel">{mensaje}</p>}
+      {!isAdmin && (
+        <p className="mensajePanel">
+          Primero agregas productos desde la seccion de productos. Despues aparecen aqui para revisarlos antes de convertirlos en pedido.
+        </p>
+      )}
 
       {isAdmin && (
         <div className="crudGrid">
@@ -291,7 +313,7 @@ function Carritos() {
       )}
 
       <article className="listadoCard">
-        <h3>Carritos</h3>
+        <h3>{isAdmin ? "Carritos" : "Resumen de mi carrito"}</h3>
         <div className="tablaResponsive">
           <table className="tablaCrud">
             <thead>
@@ -305,7 +327,7 @@ function Carritos() {
               </tr>
             </thead>
             <tbody>
-              {carritos.map((carrito) => (
+              {carritosVisibles.map((carrito) => (
                 <tr key={carrito.id}>
                   <td>{carrito.id}</td>
                   <td>{carrito.tbc_usuario?.nombre || carrito.id_usuario}</td>
@@ -332,7 +354,7 @@ function Carritos() {
       </article>
 
       <article className="listadoCard">
-        <h3>Detalle del carrito</h3>
+        <h3>{isAdmin ? "Detalle del carrito" : "Productos agregados"}</h3>
         <div className="tablaResponsive">
           <table className="tablaCrud">
             <thead>
@@ -347,7 +369,7 @@ function Carritos() {
               </tr>
             </thead>
             <tbody>
-              {detalles.map((detalle) => (
+              {detallesVisibles.map((detalle) => (
                 <tr key={detalle.id}>
                   <td>{detalle.id}</td>
                   <td>{detalle.id_carrito}</td>
@@ -369,6 +391,29 @@ function Carritos() {
           </table>
         </div>
       </article>
+
+      {!isAdmin && carritoPendiente && detallesPendientes.length > 0 && (
+        <article className="resumenCompraCard">
+          <div>
+            <p className="resumenCompraEtiqueta">Lista para finalizar</p>
+            <h3>Resumen de compra</h3>
+            <p>
+              Tienes {detallesPendientes.length} producto
+              {detallesPendientes.length === 1 ? "" : "s"} agregado
+              {detallesPendientes.length === 1 ? "" : "s"} en tu carrito.
+            </p>
+          </div>
+
+          <div className="resumenCompraDatos">
+            <span>Total</span>
+            <strong>${carritoPendiente.total} MXN</strong>
+          </div>
+
+          <button type="button" className="botonComprar" onClick={() => generarPedido(carritoPendiente)}>
+            Comprar
+          </button>
+        </article>
+      )}
     </section>
   );
 }

@@ -13,7 +13,7 @@ const INITIAL_FORM = {
 };
 
 function Pedidos() {
-  const { isAdmin } = useAuth();
+  const { isAdmin, usuario } = useAuth();
   const [pedidos, setPedidos] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
   const [carritos, setCarritos] = useState([]);
@@ -42,6 +42,10 @@ function Pedidos() {
   useEffect(() => {
     cargarDatos();
   }, [isAdmin]);
+
+  const pedidosVisibles = isAdmin
+    ? pedidos
+    : pedidos.filter((item) => Number(item.id_usuario) === Number(usuario?.id));
 
   const handleChange = ({ target }) => {
     setFormData((prev) => ({ ...prev, [target.name]: target.value }));
@@ -106,13 +110,18 @@ function Pedidos() {
           <p>
             {isAdmin
               ? "Consulta, registra y modifica pedidos."
-              : "Consulta el historial de pedidos generados en tu cuenta."}
+              : "Aqui se muestran las compras que ya fueron generadas desde tu carrito."}
           </p>
         </div>
-        <span className="panelBadge">{pedidos.length} pedidos</span>
+        <span className="panelBadge">{pedidosVisibles.length} pedidos</span>
       </div>
 
       {mensaje && <p className="mensajePanel">{mensaje}</p>}
+      {!isAdmin && (
+        <p className="mensajePanel">
+          Esta seccion guarda tus pedidos confirmados. Si un producto aun no aparece aqui, primero debes revisarlo en "Mi carrito" y generar el pedido.
+        </p>
+      )}
 
       {isAdmin && (
         <article className="crudCard">
@@ -190,7 +199,7 @@ function Pedidos() {
               </tr>
             </thead>
             <tbody>
-              {pedidos.map((pedido) => (
+              {pedidosVisibles.map((pedido) => (
                 <tr key={pedido.id}>
                   <td>{pedido.id}</td>
                   <td>{pedido.tbc_usuario?.nombre || pedido.id_usuario}</td>

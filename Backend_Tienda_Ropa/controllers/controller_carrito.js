@@ -6,9 +6,13 @@ const usuario = db.tbc_usuario;
 module.exports = {
     async create(req, res) {
         try {
-            const idUsuario = req.user.rol === 'admin' && req.body.id_usuario
-                ? req.body.id_usuario
-                : req.user.id;
+            const idUsuario = req.body.id_usuario;
+
+            if (!idUsuario) {
+                return res.status(400).send({
+                    mensaje: 'Debes enviar id_usuario'
+                });
+            }
 
             const nuevoCarrito = await carrito.create({
                 id_usuario: idUsuario,
@@ -27,10 +31,7 @@ module.exports = {
     },
     async list(req, res) {
         try {
-            const where = req.user.rol === 'admin' ? {} : { id_usuario: req.user.id };
-
             const carritos = await carrito.findAll({
-                where,
                 include: [
                     {
                         model: usuario,
@@ -73,12 +74,6 @@ module.exports = {
                 });
             }
 
-            if (req.user.rol !== 'admin' && dataCarrito.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No tienes permiso para ver este carrito'
-                });
-            }
-
             return res.status(200).send(dataCarrito);
         } catch (error) {
             return res.status(400).send({
@@ -97,21 +92,12 @@ module.exports = {
                 });
             }
 
-            if (req.user.rol !== 'admin' && dataCarrito.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No tienes permiso para modificar este carrito'
-                });
-            }
-
             const payload = {
+                id_usuario: req.body.id_usuario || dataCarrito.id_usuario,
                 total: req.body.total,
                 estado: req.body.estado,
                 fecha_creacion: req.body.fecha_creacion
             };
-
-            if (req.user.rol === 'admin' && req.body.id_usuario) {
-                payload.id_usuario = req.body.id_usuario;
-            }
 
             await dataCarrito.update(payload);
 
@@ -130,12 +116,6 @@ module.exports = {
             if (!dataCarrito) {
                 return res.status(404).send({
                     mensaje: 'Carrito no encontrado'
-                });
-            }
-
-            if (req.user.rol !== 'admin' && dataCarrito.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No tienes permiso para eliminar este carrito'
                 });
             }
 

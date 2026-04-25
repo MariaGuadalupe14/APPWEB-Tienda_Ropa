@@ -14,6 +14,15 @@ function buildUserPayload(body) {
     };
 }
 
+function normalizeRole(role) {
+    if (typeof role !== 'string') {
+        return 'cliente';
+    }
+
+    const value = role.trim().toLowerCase();
+    return value === 'admin' ? 'admin' : 'cliente';
+}
+
 module.exports = {
     async create(req, res) {
         try {
@@ -29,7 +38,7 @@ module.exports = {
 
             const nuevoUsuario = await usuario.create({
                 ...buildUserPayload(req.body),
-                rol: req.body.rol || 'cliente',
+                rol: normalizeRole(req.body.rol),
                 activo: typeof req.body.activo === 'boolean' ? req.body.activo : true,
                 fecha_registro: req.body.fecha_registro || new Date()
             });

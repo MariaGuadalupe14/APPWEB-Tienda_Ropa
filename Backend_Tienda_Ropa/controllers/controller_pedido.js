@@ -15,14 +15,8 @@ module.exports = {
                 });
             }
 
-            if (req.user.rol !== 'admin' && dataCarrito.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No puedes generar pedidos para otro usuario'
-                });
-            }
-
             const nuevoPedido = await pedido.create({
-                id_usuario: req.user.rol === 'admin' && req.body.id_usuario ? req.body.id_usuario : dataCarrito.id_usuario,
+                id_usuario: req.body.id_usuario || dataCarrito.id_usuario,
                 id_carrito: req.body.id_carrito,
                 total: req.body.total ?? dataCarrito.total,
                 estado: req.body.estado || 'pendiente',
@@ -41,10 +35,7 @@ module.exports = {
     },
     async list(req, res) {
         try {
-            const where = req.user.rol === 'admin' ? {} : { id_usuario: req.user.id };
-
             const pedidos = await pedido.findAll({
-                where,
                 include: [
                     {
                         model: usuario,
@@ -87,12 +78,6 @@ module.exports = {
                 });
             }
 
-            if (req.user.rol !== 'admin' && dataPedido.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No tienes permiso para ver este pedido'
-                });
-            }
-
             return res.status(200).send(dataPedido);
         } catch (error) {
             return res.status(400).send({
@@ -111,24 +96,15 @@ module.exports = {
                 });
             }
 
-            if (req.user.rol !== 'admin' && dataPedido.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No tienes permiso para editar este pedido'
-                });
-            }
-
             const payload = {
+                id_usuario: req.body.id_usuario || dataPedido.id_usuario,
+                id_carrito: req.body.id_carrito || dataPedido.id_carrito,
                 total: req.body.total,
                 estado: req.body.estado,
                 metodo_pago: req.body.metodo_pago,
                 direccion_envio: req.body.direccion_envio,
                 fecha_pedido: req.body.fecha_pedido
             };
-
-            if (req.user.rol === 'admin') {
-                payload.id_usuario = req.body.id_usuario || dataPedido.id_usuario;
-                payload.id_carrito = req.body.id_carrito || dataPedido.id_carrito;
-            }
 
             await dataPedido.update(payload);
 
@@ -149,12 +125,6 @@ module.exports = {
             if (!dataPedido) {
                 return res.status(404).send({
                     mensaje: 'Pedido no encontrado'
-                });
-            }
-
-            if (req.user.rol !== 'admin' && dataPedido.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No tienes permiso para eliminar este pedido'
                 });
             }
 

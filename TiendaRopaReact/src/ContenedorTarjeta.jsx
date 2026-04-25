@@ -7,7 +7,6 @@ import Sucursales from "./Sucursales";
 import Login from "./Login";
 import RegistrarUsuarios from "./RegistrarUsuarios";
 import CategoriasAdmin from "./CategoriasAdmin";
-import ProductosAdmin from "./ProductosAdmin";
 import UsuariosAdmin from "./UsuariosAdmin";
 import Carritos from "./Carritos";
 import Pedidos from "./Pedidos";
@@ -38,6 +37,28 @@ const TENDENCIAS = [
   },
 ];
 
+const WEATHER_LABELS = {
+  0: "Cielo despejado",
+  1: "Mayormente despejado",
+  2: "Parcialmente nublado",
+  3: "Nublado",
+  45: "Neblina",
+  48: "Neblina con escarcha",
+  51: "Llovizna ligera",
+  53: "Llovizna moderada",
+  55: "Llovizna intensa",
+  61: "Lluvia ligera",
+  63: "Lluvia moderada",
+  65: "Lluvia intensa",
+  71: "Nevada ligera",
+  73: "Nevada moderada",
+  75: "Nevada intensa",
+  80: "Chubascos ligeros",
+  81: "Chubascos moderados",
+  82: "Chubascos intensos",
+  95: "Tormenta",
+};
+
 function ContenedorTarjeta({ vista, categoria, cambiarVista, cambiarCategoria }) {
   const { isAdmin, isLoggedIn } = useAuth();
 
@@ -46,13 +67,13 @@ function ContenedorTarjeta({ vista, categoria, cambiarVista, cambiarCategoria })
       <Inicio cambiarVista={cambiarVista} cambiarCategoria={cambiarCategoria} />
     ),
     AcercaDe: <AcercaDe />,
-    Productos: <Productos categoria={categoria} />,
+    Productos: <Productos categoria={categoria} cambiarVista={cambiarVista} />,
     Contacto: <Contacto />,
     Sucursales: <Sucursales />,
     Login: <Login cambiarVista={cambiarVista} />,
     RegistrarUsuarios: <RegistrarUsuarios cambiarVista={cambiarVista} />,
     CategoriasAdmin: isAdmin ? <CategoriasAdmin /> : <Bloqueo titulo="Categorias" cambiarVista={cambiarVista} />,
-    ProductosAdmin: isAdmin ? <ProductosAdmin /> : <Bloqueo titulo="Productos" cambiarVista={cambiarVista} />,
+    ProductosAdmin: isAdmin ? <Productos categoria={categoria} cambiarVista={cambiarVista} /> : <Bloqueo titulo="Productos" cambiarVista={cambiarVista} />,
     Usuarios: isAdmin ? <UsuariosAdmin /> : <Bloqueo titulo="Usuarios" cambiarVista={cambiarVista} />,
     Carritos: isLoggedIn ? <Carritos /> : <Bloqueo titulo="Carritos" cambiarVista={cambiarVista} />,
     Pedidos: isLoggedIn ? <Pedidos /> : <Bloqueo titulo="Pedidos" cambiarVista={cambiarVista} />,
@@ -69,7 +90,6 @@ function Inicio({ cambiarVista, cambiarCategoria }) {
   const [clima, setClima] = useState(null);
   const [cargandoClima, setCargandoClima] = useState(true);
   const [errorClima, setErrorClima] = useState("");
-  const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
   const lat = 20.278673257056912;
   const lng = -97.96470248658306;
 
@@ -82,16 +102,10 @@ function Inicio({ cambiarVista, cambiarCategoria }) {
   }, []);
 
   useEffect(() => {
-    if (!API_KEY) {
-      setErrorClima("Configura VITE_OPENWEATHER_API_KEY en tu .env");
-      setCargandoClima(false);
-      return;
-    }
-
     const controller = new AbortController();
 
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${API_KEY}&units=metric&lang=es`,
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,weather_code&timezone=auto`,
       { signal: controller.signal }
     )
       .then((res) => {
@@ -99,7 +113,11 @@ function Inicio({ cambiarVista, cambiarCategoria }) {
         return res.json();
       })
       .then((data) => {
-        setClima(data);
+        setClima({
+          nombre: "Tu zona",
+          temperatura: Math.round(data.current?.temperature_2m ?? 0),
+          descripcion: WEATHER_LABELS[data.current?.weather_code] || "Clima actual",
+        });
         setErrorClima("");
       })
       .catch((error) => {
@@ -110,7 +128,7 @@ function Inicio({ cambiarVista, cambiarCategoria }) {
       .finally(() => setCargandoClima(false));
 
     return () => controller.abort();
-  }, [API_KEY]);
+  }, [lat, lng]);
 
   const slideActual = TENDENCIAS[indiceActual];
 
@@ -143,9 +161,9 @@ function Inicio({ cambiarVista, cambiarCategoria }) {
             {!cargandoClima && !errorClima && clima && (
               <>
                 <p>
-                  {clima.name}: {Math.round(clima.main.temp)} C
+                  {clima.nombre}: {clima.temperatura} C
                 </p>
-                <p>{clima.weather?.[0]?.description}</p>
+                <p>{clima.descripcion}</p>
               </>
             )}
           </div>

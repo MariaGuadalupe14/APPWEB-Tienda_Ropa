@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import miLogo from "./assets/logo.png";
 import facebookImg from "./assets/redes/facebook.png";
@@ -6,15 +6,16 @@ import instagramImg from "./assets/redes/instagram.png";
 import tiktokImg from "./assets/redes/tik-tok.png";
 import whatsappImg from "./assets/redes/whatsapp.png";
 import { useAuth } from "./AuthContext";
+import api from "./services/api";
 import "./Encabezado.css";
 
 const MENU_PUBLICO = ["Inicio", "AcercaDe", "Productos", "Contacto", "Sucursales"];
 const MENU_CLIENTE = ["Carritos", "Pedidos"];
-const MENU_ADMIN = ["Usuarios", "CategoriasAdmin", "ProductosAdmin", "Carritos", "Pedidos"];
-const CATEGORIAS = ["Todas", "Mujer", "Hombre", "Ninos", "Accesorios"];
+const MENU_ADMIN = ["Usuarios", "CategoriasAdmin", "Carritos", "Pedidos"];
 
 function Encabezado({ cambiarVista, vistaActual, cambiarCategoria }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
+  const [categorias, setCategorias] = useState(["Todas"]);
   const { isLoggedIn, isAdmin, usuario, logout } = useAuth();
 
   const menuPrincipal = useMemo(() => {
@@ -26,6 +27,21 @@ function Encabezado({ cambiarVista, vistaActual, cambiarCategoria }) {
     }
     return items;
   }, [isAdmin, isLoggedIn]);
+
+  useEffect(() => {
+    api
+      .get("/categorias")
+      .then((data) => {
+        const categoriasDinamicas = data
+          .map((item) => item.nombre)
+          .filter(Boolean);
+
+        setCategorias(["Todas", ...categoriasDinamicas]);
+      })
+      .catch(() => {
+        setCategorias(["Todas"]);
+      });
+  }, []);
 
   const seleccionarCategoria = (categoria) => {
     cambiarCategoria(categoria);
@@ -68,11 +84,13 @@ function Encabezado({ cambiarVista, vistaActual, cambiarCategoria }) {
               >
                 {item === "AcercaDe"
                   ? "Acerca de"
-                  : item === "CategoriasAdmin"
-                    ? "Categorias"
-                    : item === "ProductosAdmin"
-                      ? "Registrar productos"
-                      : item}
+                  : item === "Carritos"
+                    ? "Mi carrito"
+                    : item === "Pedidos"
+                      ? "Mis pedidos"
+                      : item === "CategoriasAdmin"
+                        ? "Categorias"
+                        : item}
               </button>
             </li>
           ))}
@@ -90,7 +108,7 @@ function Encabezado({ cambiarVista, vistaActual, cambiarCategoria }) {
 
             {menuAbierto && (
               <ul className="submenuCategorias" aria-label="Categorias">
-                {CATEGORIAS.map((categoria) => (
+                {categorias.map((categoria) => (
                   <li key={categoria}>
                     <button type="button" onClick={() => seleccionarCategoria(categoria)}>
                       {categoria}

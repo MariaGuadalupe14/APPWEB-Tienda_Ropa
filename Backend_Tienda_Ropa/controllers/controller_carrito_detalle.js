@@ -14,12 +14,6 @@ module.exports = {
                 });
             }
 
-            if (req.user.rol !== 'admin' && dataCarrito.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No tienes permiso para editar este carrito'
-                });
-            }
-
             const nuevoDetalle = await carrito_detalle.create({
                 id_carrito: req.body.id_carrito,
                 id_producto: req.body.id_producto,
@@ -52,11 +46,7 @@ module.exports = {
                 order: [['id', 'DESC']]
             });
 
-            const filtrados = req.user.rol === 'admin'
-                ? detalles
-                : detalles.filter((item) => item.tbb_carrito?.id_usuario === req.user.id);
-
-            return res.status(200).send(filtrados);
+            return res.status(200).send(detalles);
         } catch (error) {
             return res.status(400).send({
                 mensaje: 'No fue posible obtener el detalle del carrito',
@@ -85,12 +75,6 @@ module.exports = {
                 });
             }
 
-            if (req.user.rol !== 'admin' && dataDetalle.tbb_carrito?.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No tienes permiso para ver este detalle'
-                });
-            }
-
             return res.status(200).send(dataDetalle);
         } catch (error) {
             return res.status(400).send({
@@ -111,12 +95,6 @@ module.exports = {
             if (!dataDetalle) {
                 return res.status(404).send({
                     mensaje: 'Detalle no encontrado'
-                });
-            }
-
-            if (req.user.rol !== 'admin' && dataDetalle.tbb_carrito?.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No tienes permiso para editar este detalle'
                 });
             }
 
@@ -148,12 +126,6 @@ module.exports = {
             if (!dataDetalle) {
                 return res.status(404).send({
                     mensaje: 'Detalle no encontrado'
-                });
-            }
-
-            if (req.user.rol !== 'admin' && dataDetalle.tbb_carrito?.id_usuario !== req.user.id) {
-                return res.status(403).send({
-                    mensaje: 'No tienes permiso para eliminar este detalle'
                 });
             }
 
