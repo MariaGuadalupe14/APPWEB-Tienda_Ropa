@@ -1,0 +1,237 @@
+.panelAdmin {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+}
+
+.panelHeader p {
+  margin: 0.35rem 0 0;
+  color: #555;
+}
+
+.panelBadge {
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-weight: 700;
+}
+
+.crudGrid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 1.5rem;
+}
+
+.crudCard,
+.listadoCard {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(20, 20, 20, 0.08);
+  border-radius: 28px;
+  padding: 1.4rem;
+  box-shadow: 0 16px 40px rgba(18, 18, 18, 0.08);
+}
+
+.crudCard h3,
+.listadoCard h3 {
+  margin-top: 0;
+}
+
+.crudForm {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.crudForm label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+.crudForm input,
+.crudForm textarea,
+.crudForm select {
+  width: 100%;
+  border: 1px solid #d8d8d8;
+  border-radius: 14px;
+  padding: 0.78rem 0.9rem;
+  font: inherit;
+  background: #fff;
+}
+
+.crudForm textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.crudActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.crudActions button,
+.tablaAcciones button,
+.panelVacio button {
+  border: 0;
+  border-radius: 14px;
+  padding: 0.78rem 1rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.crudActions button:first-child,
+.tablaAcciones button:first-child,
+.panelVacio button {
+  background: #111;
+  color: #fff;
+}
+
+.crudActions .secondary,
+.tablaAcciones .secondary {
+  background: #ece7e1;
+  color: #171717;
+}
+
+.mensajePanel {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 14px;
+  background: #f4ede6;
+  color: #6c4f37;
+}
+
+.tablaResponsive {
+  overflow-x: auto;
+}
+
+.tablaCrud {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tablaCrud th,
+.tablaCrud td {
+  text-align: left;
+  padding: 0.9rem 0.65rem;
+  border-bottom: 1px solid #ececec;
+  vertical-align: top;
+}
+
+.tablaCrud th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #666;
+}
+
+.tablaAcciones {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.estadoChip {
+  display: inline-flex;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: #ece7e1;
+  color: #4c3a2c;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.panelVacio {
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.82);
+  border-radius: 28px;
+  border: 1px dashed #d8d8d8;
+  padding: 2rem;
+}
+
+.resumenCompraCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: linear-gradient(135deg, #131313, #242038);
+  color: #fff;
+  border-radius: 28px;
+  padding: 1.5rem;
+  box-shadow: 0 18px 42px rgba(18, 18, 18, 0.16);
+}
+
+.resumenCompraCard h3 {
+  margin: 0.2rem 0 0.35rem;
+}
+
+.resumenCompraCard p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.resumenCompraEtiqueta {
+  color: #ffcf9d !important;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resumenCompraDatos {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 140px;
+}
+
+.resumenCompraDatos span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.85rem;
+}
+
+.resumenCompraDatos strong {
+  font-size: 1.5rem;
+}
+
+.botonComprar {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.95rem 1.6rem;
+  background: #ff8d4d;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.botonComprar:hover {
+  background: #ff7430;
+}
+
+@media (max-width: 960px) {
+  .crudGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .resumenCompraCard {
+    align-items: start;
+  }
+}

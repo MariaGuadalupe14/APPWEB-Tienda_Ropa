@@ -3,20 +3,42 @@
   top: 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: 140px 1fr 170px;
+  grid-template-columns: minmax(220px, 310px) 1fr minmax(260px, 360px);
   gap: 1rem;
   align-items: center;
   padding: 0.8rem 1.3rem;
-  background:
-    linear-gradient(180deg, rgba(15, 15, 15, 0.97), rgba(9, 9, 9, 0.97));
+  background: linear-gradient(180deg, rgba(15, 15, 15, 0.97), rgba(9, 9, 9, 0.97));
   border-bottom: 1px solid #2b2b2b;
   backdrop-filter: blur(8px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-.logoDiv img {
-  width: 105px;
-  filter: brightness(1.08) contrast(1.05);
+.logoDiv {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  cursor: pointer;
+}
+
+.logoImagen {
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
+  filter: brightness(1.04) contrast(1.04);
+}
+
+.logoTexto {
+  display: grid;
+}
+
+.logoTexto strong {
+  color: #fff6ec;
+  font-size: 1rem;
+}
+
+.logoTexto span {
+  color: #cfb297;
+  font-size: 0.82rem;
 }
 
 .menuDiv {
@@ -46,11 +68,7 @@
   transition: all 0.2s ease;
 }
 
-.menuDiv button:hover {
-  background: #ffffff;
-  color: #111;
-}
-
+.menuDiv button:hover,
 .menuDiv button.activo {
   background: #ffffff;
   color: #111;
@@ -63,12 +81,6 @@
 .categoriaMenu > button {
   border: 1px solid #3a3a3a;
   background: #1b1b1b;
-}
-
-.categoriaMenu > button:hover,
-.categoriaMenu > button.activo {
-  background: #fff;
-  color: #111;
 }
 
 .categoriaMenu > button::after {
@@ -107,16 +119,50 @@
 
 .redesDiv {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: flex-end;
   gap: 0.75rem;
 }
 
-.redesDiv a:hover {
+.authStatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  color: #f6eadb;
+}
+
+.authStatus button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.authStatus button:first-of-type {
+  background: #fff;
+  color: #111;
+}
+
+.authStatus .secondary {
+  background: #2a2a2a;
+  color: #f6eadb;
+  border: 1px solid #4a4a4a;
+}
+
+.socialLinks {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.socialLinks a:hover {
   transform: translateY(-1px);
 }
 
-.redesDiv img {
+.socialLinks img {
   width: 25px;
   opacity: 0.95;
 }
@@ -127,13 +173,11 @@
     gap: 0.7rem;
   }
 
-  .logoDiv {
-    display: flex;
-    justify-content: center;
-  }
-
+  .logoDiv,
   .menuDiv ul,
-  .redesDiv {
+  .redesDiv,
+  .authStatus,
+  .socialLinks {
     justify-content: center;
   }
 

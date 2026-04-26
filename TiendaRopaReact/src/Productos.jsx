@@ -1,61 +1,328 @@
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useAuth } from "./AuthContext";
+import api from "./services/api";
 import "./Productos.css";
 
-const PRODUCTOS = [
-  { nombre: "Playera Casual", precio: "$299 MXN", desc: "Algodon premium, varios colores.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/51sGTVkkShL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Sudadera Clasica", precio: "$499 MXN", desc: "Ideal para clima frio.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/71egm8s4SaL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Pantalon Slim", precio: "$599 MXN", desc: "Corte moderno y comodo.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/515wpbANaKL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Chamarra Denim", precio: "$899 MXN", desc: "Look urbano con costuras resistentes.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/81zgb19+r1L._AC_UL320_.jpg" },
-  { nombre: "Vestido Midi", precio: "$699 MXN", desc: "Caida suave y elegante.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/518drF3xC+L._AC_UL320_.jpg" },
-  { nombre: "Falda Plisada", precio: "$449 MXN", desc: "Textura ligera para cualquier ocasion.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/71jstxCy-6L._AC_UL320_.jpg" },
-  { nombre: "Blusa Satinada", precio: "$399 MXN", desc: "Brillo discreto y corte fino.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/71Hc0YnGfsL._AC_UL320_.jpg" },
-  { nombre: "Camisa Blanca", precio: "$349 MXN", desc: "Basico elegante para diario.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/51q1ceKvBYL._AC_UL320_.jpg" },
-  { nombre: "Short Deportivo", precio: "$259 MXN", desc: "Comodo y transpirable.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/51kEdCSZh0L._AC_UL320_.jpg" },
-  { nombre: "Pants Jogger", precio: "$529 MXN", desc: "Estilo relajado y moderno.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/618Cvh2r-GL._AC_UL320_.jpg" },
-  { nombre: "Top Deportivo", precio: "$279 MXN", desc: "Soporte y libertad de movimiento.", categoria: "Mujer", img: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR2pAPo0sMb-5x_Ge_cdX-kaNvRNXO2_5T7rapk7UnUmjPc2fArlageeYvZX9ykJOuo4sVah4__OP6s82mQLU8NVRI2VCUlOdbqw03HufrnztAVk6hcCwnZdot4jLgbkcEI1EQ5Rg&usqp=CAc" },
-  { nombre: "Sueter Tejido", precio: "$649 MXN", desc: "Calido y suave al tacto.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/61r6xY2yE3L._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Blazer Negro", precio: "$999 MXN", desc: "Formal y elegante.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/61f9D2JYhZL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Chaleco Acolchado", precio: "$799 MXN", desc: "Ligero y abrigador.", categoria: "Hombre", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh0QWgQxL4kUxmSvNDzHH6EbNVHCsu7P9A8w&s" },
-  { nombre: "Camisa Cuadros", precio: "$369 MXN", desc: "Clasica con estilo casual.", categoria: "Hombre", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5KgffWOykZDQA3KdCDWLxusU_OR7LsdvSug&s" },
-  { nombre: "Playera Oversize", precio: "$329 MXN", desc: "Corte amplio y comodo.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/61XxZx4yU2L._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Jeans Rectos", precio: "$579 MXN", desc: "Denim clasico para diario.", categoria: "Mujer", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2X_9DWfj0BKz5yqHfziLJONjyjJCr55tYqQ&s" },
-  { nombre: "Blusa Basica", precio: "$259 MXN", desc: "Suave y combinable.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/61U0SxT3C4L._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Vestido Negro", precio: "$749 MXN", desc: "Elegante para noche.", categoria: "Mujer", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzqIWSrVpt2v-L2mmRuNXcXRacuZFMv-WtlQ&s" },
-  { nombre: "Falda Denim", precio: "$389 MXN", desc: "Basica y moderna.", categoria: "Mujer", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3_kazo8z0GpsDPcj6OEQMx5CzhRsiYpGRYg&s" },
-  { nombre: "Camisa Lino", precio: "$459 MXN", desc: "Fresca para calor.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/61xB4k1QKxL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Chamarra Piel", precio: "$1499 MXN", desc: "Estilo premium.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/71q0bNwS9WL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Sueter Cuello Alto", precio: "$679 MXN", desc: "Calidez con estilo.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/61D5c2yUQBL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Camisa Manga Corta", precio: "$319 MXN", desc: "Casual y ligera.", categoria: "Hombre", img: "https://m.media-amazon.com/images/I/61t8u2n1cXL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Leggings", precio: "$289 MXN", desc: "Comodos y elasticos.", categoria: "Mujer", img: "https://m.media-amazon.com/images/I/71Kf6k2sQYL._AC_UL480_FMwebp_QL65_.jpg" },
-  { nombre: "Chalina", precio: "$199 MXN", desc: "Suave y ligera.", categoria: "Accesorios", img: "https://m.media-amazon.com/images/I/71FZTX1ZhnL._UF894,1000_QL80_.jpg" },
-  { nombre: "Gorra Basica", precio: "$159 MXN", desc: "Accesorio urbano.", categoria: "Accesorios", img: "https://www.sartex.com.mx/cdn/shop/products/G001AM001.jpg?v=1670956155" },
-  { nombre: "Cinturon Negro", precio: "$219 MXN", desc: "Acabado elegante.", categoria: "Accesorios", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQCFghQWzjic6sm_5RC6Nlq6KWR8HA3X-nKQ&s" },
-  { nombre: "Bolso Tote", precio: "$499 MXN", desc: "Amplio y practico.", categoria: "Accesorios", img: "https://www.charleskeith.com/dw/image/v2/BCWJ_PRD/on/demandware.static/-/Sites-ck-products/default/dw6dd02ed4/images/hi-res/2024-L6-CK2-30671662-K5-1.jpg?sw=756&sh=1008" },
-  { nombre: "Calcetines Pack", precio: "$149 MXN", desc: "Comodos todo el dia.", categoria: "Accesorios", img: "https://detqhtv6m6lzl.cloudfront.net/HCLContenido/producto/FullImage/7506572235084-1.jpg" },
-];
+const INITIAL_FORM = {
+  nombre: "",
+  descripcion: "",
+  imagen: "",
+  precio: "",
+  stock: "",
+  talla: "",
+  color: "",
+  genero: "",
+  activo: "true",
+  id_categoria: "",
+};
 
-function Productos({ categoria }) {
+function Productos({ categoria, cambiarVista }) {
+  const { isLoggedIn, isAdmin, usuario, carritoActivo, guardarCarritoActivo } = useAuth();
+  const [productos, setProductos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [mensaje, setMensaje] = useState("");
+  const [formData, setFormData] = useState(INITIAL_FORM);
+  const [productoEditando, setProductoEditando] = useState(null);
+
+  const cargarDatos = async () => {
+    try {
+      const [productosData, categoriasData] = await Promise.all([
+        api.get("/productos"),
+        api.get("/categorias"),
+      ]);
+      setProductos(productosData);
+      setCategorias(categoriasData);
+    } catch (error) {
+      setMensaje(error.message);
+    }
+  };
+
+  useEffect(() => {
+    cargarDatos();
+  }, []);
+
   const productosFiltrados =
     categoria === "Todas"
-      ? PRODUCTOS
-      : PRODUCTOS.filter((producto) => producto.categoria === categoria);
+      ? productos
+      : productos.filter((producto) => {
+          const genero = producto.genero || producto.tbc_categoria?.nombre || "Todas";
+          return genero === categoria || producto.tbc_categoria?.nombre === categoria;
+        });
+
+  const handleChange = ({ target }) => {
+    setFormData((prev) => ({
+      ...prev,
+      [target.name]: target.value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const payload = {
+      ...formData,
+      precio: Number(formData.precio),
+      stock: Number(formData.stock),
+      id_categoria: Number(formData.id_categoria),
+      activo: formData.activo === "true",
+    };
+
+    try {
+      if (productoEditando) {
+        await api.put(`/producto/${productoEditando.id}`, payload);
+        setMensaje("Producto actualizado correctamente.");
+      } else {
+        await api.post("/producto", payload);
+        setMensaje("Producto registrado correctamente.");
+      }
+
+      setProductoEditando(null);
+      setFormData(INITIAL_FORM);
+      cargarDatos();
+    } catch (error) {
+      setMensaje(error.message);
+    }
+  };
+
+  const editarProducto = (producto) => {
+    setProductoEditando(producto);
+    setFormData({
+      nombre: producto.nombre || "",
+      descripcion: producto.descripcion || "",
+      imagen: producto.imagen || "",
+      precio: producto.precio || "",
+      stock: producto.stock || "",
+      talla: producto.talla || "",
+      color: producto.color || "",
+      genero: producto.genero || "",
+      activo: String(Boolean(producto.activo)),
+      id_categoria: String(producto.id_categoria || ""),
+    });
+  };
+
+  const limpiarFormulario = () => {
+    setProductoEditando(null);
+    setFormData(INITIAL_FORM);
+  };
+
+  const eliminarProducto = async (id) => {
+    try {
+      await api.delete(`/producto/${id}`);
+      setMensaje("Producto eliminado correctamente.");
+      if (productoEditando?.id === id) {
+        limpiarFormulario();
+      }
+      cargarDatos();
+    } catch (error) {
+      setMensaje(error.message);
+    }
+  };
+
+  const agregarAlCarrito = async (producto) => {
+    if (!isLoggedIn) {
+      setMensaje("Inicia sesion para agregar productos al carrito.");
+      return;
+    }
+
+    if (isAdmin) {
+      setMensaje("La cuenta de administrador no agrega productos al carrito.");
+      return;
+    }
+
+    try {
+      let carrito = carritoActivo;
+
+      if (
+        !carrito ||
+        carrito.estado !== "pendiente" ||
+        Number(carrito.id_usuario) !== Number(usuario?.id)
+      ) {
+        const carritos = await api.get("/carritos");
+        carrito = carritos.find(
+          (item) =>
+            item.estado === "pendiente" &&
+            Number(item.id_usuario) === Number(usuario?.id)
+        );
+      }
+
+      if (!carrito) {
+        carrito = await api.post("/carrito", {
+          id_usuario: usuario?.id,
+          total: 0,
+          estado: "pendiente",
+        });
+      }
+
+      await api.post("/carrito_detalle", {
+        id_carrito: carrito.id,
+        id_producto: producto.id,
+        precio_unitario: Number(producto.precio),
+        cantidad: 1,
+        subtotal: Number(producto.precio),
+      });
+
+      const nuevoTotal = Number(carrito.total || 0) + Number(producto.precio);
+      await api.put(`/carrito/${carrito.id}`, {
+        id_usuario: usuario?.id,
+        total: nuevoTotal,
+        estado: "pendiente",
+      });
+
+      guardarCarritoActivo({
+        ...carrito,
+        id_usuario: usuario?.id,
+        total: nuevoTotal,
+        estado: "pendiente",
+      });
+      setMensaje(`${producto.nombre} se agrego a tu carrito. Puedes revisarlo en "Mi carrito".`);
+    } catch (error) {
+      setMensaje(error.message);
+    }
+  };
 
   return (
     <section className="productos">
-      <h2>Nuestros Productos</h2>
-      <p className="filtroTexto">Categoria: {categoria}</p>
+      <div className="productosHero">
+        <div>
+          <p className="productosEyebrow">{isAdmin ? "Panel de catalogo" : "Tienda en linea"}</p>
+          <h2>{isAdmin ? "Productos y registro" : "Nuestros Productos"}</h2>
+          <p className="filtroTexto">Categoria: {categoria}</p>
+          {!isAdmin && (
+            <p className="productosAyuda">
+              Agrega productos aqui y despues entra a <strong>Mi carrito</strong> para revisar tu compra o generar tu pedido.
+            </p>
+          )}
+        </div>
+        {isAdmin && <span className="productosBadge">{productos.length} productos</span>}
+      </div>
+      {mensaje && <p className="productosMensaje">{mensaje}</p>}
+      {!isAdmin && isLoggedIn && (
+        <div className="productosQuickActions">
+          <button type="button" onClick={() => cambiarVista("Carritos")}>
+            Ver mi carrito
+          </button>
+          <button type="button" className="secondary" onClick={() => cambiarVista("Pedidos")}>
+            Ver mis pedidos
+          </button>
+        </div>
+      )}
 
-      <div className="grid-productos">
-        {productosFiltrados.map((producto) => (
-          <article className="card-producto" key={producto.nombre}>
-            <img src={producto.img} alt={producto.nombre} loading="lazy" />
-            <span className="categoriaProducto">{producto.categoria}</span>
-            <h3>{producto.nombre}</h3>
-            <p>{producto.desc}</p>
-            <span>{producto.precio}</span>
-            <button type="button">Comprar</button>
-          </article>
-        ))}
+      <div className={isAdmin ? "productosLayout admin" : "productosLayout"}>
+        {isAdmin && (
+          <aside className="productosCrud">
+            <div className="crudGlass">
+              <div className="crudTitulo">
+                <h3>{productoEditando ? "Editar producto" : "Registrar producto"}</h3>
+                <p>Administra tu catalogo sin salir de la vista principal.</p>
+              </div>
+
+              <form className="productosForm" onSubmit={handleSubmit}>
+                <label>
+                  Nombre
+                  <input name="nombre" value={formData.nombre} onChange={handleChange} required />
+                </label>
+                <label>
+                  Descripcion
+                  <textarea name="descripcion" value={formData.descripcion} onChange={handleChange} required />
+                </label>
+                <label>
+                  Imagen URL
+                  <input name="imagen" value={formData.imagen} onChange={handleChange} />
+                </label>
+                <div className="productosFormGrid">
+                  <label>
+                    Precio
+                    <input type="number" step="0.01" name="precio" value={formData.precio} onChange={handleChange} required />
+                  </label>
+                  <label>
+                    Stock
+                    <input type="number" name="stock" value={formData.stock} onChange={handleChange} required />
+                  </label>
+                </div>
+                <label>
+                  Categoria
+                  <select name="id_categoria" value={formData.id_categoria} onChange={handleChange} required>
+                    <option value="">Selecciona una categoria</option>
+                    {categorias.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.nombre}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <div className="productosFormGrid">
+                  <label>
+                    Talla
+                    <input name="talla" value={formData.talla} onChange={handleChange} />
+                  </label>
+                  <label>
+                    Color
+                    <input name="color" value={formData.color} onChange={handleChange} />
+                  </label>
+                </div>
+                <div className="productosFormGrid">
+                  <label>
+                    Genero
+                    <select name="genero" value={formData.genero} onChange={handleChange}>
+                      <option value="">Selecciona una opcion</option>
+                      <option value="Mujer">Mujer</option>
+                      <option value="Hombre">Hombre</option>
+                      <option value="Ninos">Ninos</option>
+                      <option value="Unisex">Unisex</option>
+                    </select>
+                  </label>
+                  <label>
+                    Activo
+                    <select name="activo" value={formData.activo} onChange={handleChange}>
+                      <option value="true">Si</option>
+                      <option value="false">No</option>
+                    </select>
+                  </label>
+                </div>
+
+                <div className="productosCrudActions">
+                  <button type="submit">{productoEditando ? "Actualizar" : "Guardar"}</button>
+                  <button type="button" className="secondary" onClick={limpiarFormulario}>
+                    Limpiar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </aside>
+        )}
+
+        <div className="grid-productos">
+          {productosFiltrados.map((producto) => (
+            <article className="card-producto" key={producto.id}>
+              <img
+                src={producto.imagen || "https://placehold.co/500x700/e8ded2/1f1f1f?text=Moda"}
+                alt={producto.nombre}
+                loading="lazy"
+              />
+              <span className="categoriaProducto">
+                {producto.tbc_categoria?.nombre || producto.genero || "Sin categoria"}
+              </span>
+              <h3>{producto.nombre}</h3>
+              <p>{producto.descripcion}</p>
+              <span>${producto.precio} MXN</span>
+              {isAdmin ? (
+                <div className="adminCardActions">
+                  <button type="button" onClick={() => editarProducto(producto)}>
+                    Editar
+                  </button>
+                  <button type="button" className="secondary" onClick={() => eliminarProducto(producto.id)}>
+                    Eliminar
+                  </button>
+                </div>
+              ) : (
+                <button type="button" onClick={() => agregarAlCarrito(producto)}>
+                  Agregar al carrito
+                </button>
+              )}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -63,6 +330,7 @@ function Productos({ categoria }) {
 
 Productos.propTypes = {
   categoria: PropTypes.string,
+  cambiarVista: PropTypes.func.isRequired,
 };
 
 Productos.defaultProps = {
