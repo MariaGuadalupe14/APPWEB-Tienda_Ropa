@@ -36,51 +36,72 @@ function Login({ cambiarVista }) {
 
   return (
     <section className="authPage">
-      <div className="authCard">
-        <p className="authEyebrow">Acceso a la tienda</p>
-        <h2>Iniciar sesion</h2>
-        <p className="authText">
-          Ingresa con tu cuenta para administrar productos o continuar con tus compras.
-        </p>
+      <div className="authShell">
+        <aside className="authIntro">
+          <span className="authPill">Acceso a la tienda</span>
+          <p className="authEyebrow">Bienvenida de nuevo</p>
+          <h2>Iniciar sesion</h2>
+          <p className="authText">
+            Ingresa con tu cuenta para administrar productos o continuar con tus compras.
+          </p>
 
-        <form className="authForm" onSubmit={handleSubmit}>
-          <label>
-            Correo electronico
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          <label>
-            Password
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </label>
-
-          {mensaje && <p className="authMessage">{mensaje}</p>}
-
-          <div className="authActions">
-            <button type="submit" disabled={cargando}>
-              {cargando ? "Ingresando..." : "Entrar"}
-            </button>
-            <button
-              type="button"
-              className="secondary"
-              onClick={() => cambiarVista("RegistrarUsuarios")}
-            >
-              Crear cuenta
-            </button>
+          <div className="authHighlights">
+            <article>
+              <strong>Compra mas rapido</strong>
+              <span>Revisa tu carrito y tus pedidos desde un solo lugar.</span>
+            </article>
+            <article>
+              <strong>Experiencia clara</strong>
+              <span>Accede a tu cuenta y continua donde te quedaste.</span>
+            </article>
           </div>
-        </form>
+        </aside>
+
+        <div className="authCard">
+          <div className="authCardHeader">
+            <span className="authMiniTag">Tu cuenta</span>
+            <h3>Accede para seguir comprando</h3>
+          </div>
+
+          <form className="authForm" onSubmit={handleSubmit}>
+            <label>
+              Correo electronico
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </label>
+
+            <label>
+              Password
+              <input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </label>
+
+            {mensaje && <p className="authMessage">{mensaje}</p>}
+
+            <div className="authActions">
+              <button type="submit" disabled={cargando}>
+                {cargando ? "Ingresando..." : "Entrar"}
+              </button>
+              <button
+                type="button"
+                className="secondary"
+                onClick={() => cambiarVista("RegistrarUsuarios")}
+              >
+                Crear cuenta
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   );

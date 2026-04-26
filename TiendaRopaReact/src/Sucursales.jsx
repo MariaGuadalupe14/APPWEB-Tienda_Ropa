@@ -27,25 +27,54 @@ const SUCURSALES = [
 function Sucursales() {
   return (
     <section className="sucursales">
-      <h2>Nuestras sucursales</h2>
+      <div className="sucursalesHero">
+        <div>
+          <span className="sucursalesEtiqueta">Visitanos</span>
+          <h2>Nuestras sucursales</h2>
+          <p>
+            Encuentra el punto mas cercano para conocer nuestras prendas, recibir
+            atencion personalizada y vivir la experiencia completa de la boutique.
+          </p>
+        </div>
+        <div className="sucursalesResumen">
+          <article>
+            <strong>{SUCURSALES.length}</strong>
+            <span>Sucursales disponibles</span>
+          </article>
+          <article>
+            <strong>Atencion local</strong>
+            <span>Ubicaciones pensadas para recibirte mejor</span>
+          </article>
+        </div>
+      </div>
+
       <div className="lista-sucursales">
         {SUCURSALES.map((sucursal) => (
           <article className="sucursal" key={sucursal.nombre}>
-            <h3>{sucursal.nombre}</h3>
-            <p className="direccion">{sucursal.direccion}</p>
-            <iframe
-              title={`Mapa ${sucursal.nombre}`}
-              src={`https://maps.google.com/maps?q=${sucursal.latitud},${sucursal.longitud}&z=15&output=embed`}
-              loading="lazy"
-            />
-            <a
-              href={`https://www.google.com/maps/dir/?api=1&destination=${sucursal.latitud},${sucursal.longitud}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Como llegar
-            </a>
-            <p>{sucursal.telefono}</p>
+            <div className="sucursalHeader">
+              <span className="sucursalEtiqueta">Boutique</span>
+              <h3>{sucursal.nombre}</h3>
+              <p className="direccion">{sucursal.direccion}</p>
+            </div>
+
+            <div className="sucursalMapa">
+              <iframe
+                title={`Mapa ${sucursal.nombre}`}
+                src={`https://maps.google.com/maps?q=${sucursal.latitud},${sucursal.longitud}&z=15&output=embed`}
+                loading="lazy"
+              />
+            </div>
+
+            <div className="sucursalFooter">
+              <a
+                href={`https://www.google.com/maps/dir/?api=1&destination=${sucursal.latitud},${sucursal.longitud}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Como llegar
+              </a>
+              <p>{sucursal.telefono}</p>
+            </div>
           </article>
         ))}
       </div>

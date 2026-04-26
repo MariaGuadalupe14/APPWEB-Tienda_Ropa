@@ -76,7 +76,7 @@ function ContenedorTarjeta({ vista, categoria, cambiarVista, cambiarCategoria })
     ProductosAdmin: isAdmin ? <Productos categoria={categoria} cambiarVista={cambiarVista} /> : <Bloqueo titulo="Productos" cambiarVista={cambiarVista} />,
     Usuarios: isAdmin ? <UsuariosAdmin /> : <Bloqueo titulo="Usuarios" cambiarVista={cambiarVista} />,
     Carritos: isLoggedIn ? <Carritos /> : <Bloqueo titulo="Carritos" cambiarVista={cambiarVista} />,
-    Pedidos: isLoggedIn ? <Pedidos /> : <Bloqueo titulo="Pedidos" cambiarVista={cambiarVista} />,
+    Pedidos: isLoggedIn ? <Pedidos cambiarVista={cambiarVista} /> : <Bloqueo titulo="Pedidos" cambiarVista={cambiarVista} />,
   };
 
   const claseContenedor =
