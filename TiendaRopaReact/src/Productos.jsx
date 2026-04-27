@@ -295,17 +295,21 @@ function Productos({ categoria, cambiarVista }) {
         <div className="grid-productos">
           {productosFiltrados.map((producto) => (
             <article className="card-producto" key={producto.id}>
-              <img
-                src={producto.imagen || "https://placehold.co/500x700/e8ded2/1f1f1f?text=Moda"}
-                alt={producto.nombre}
-                loading="lazy"
-              />
-              <span className="categoriaProducto">
-                {producto.tbc_categoria?.nombre || producto.genero || "Sin categoria"}
-              </span>
-              <h3>{producto.nombre}</h3>
-              <p>{producto.descripcion}</p>
-              <span>${producto.precio} MXN</span>
+              <div className="productoMedia">
+                <img
+                  src={producto.imagen || "https://placehold.co/500x700/e8ded2/1f1f1f?text=Moda"}
+                  alt={producto.nombre}
+                  loading="lazy"
+                />
+              </div>
+              <div className="productoContenido">
+                <span className="categoriaProducto">
+                  {producto.tbc_categoria?.nombre || producto.genero || "Sin categoria"}
+                </span>
+                <h3>{producto.nombre}</h3>
+                <p>{producto.descripcion}</p>
+                <span className="precioProducto">${producto.precio} MXN</span>
+              </div>
               {isAdmin ? (
                 <div className="adminCardActions">
                   <button type="button" onClick={() => editarProducto(producto)}>

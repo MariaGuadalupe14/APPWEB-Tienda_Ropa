@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useAuth } from "./AuthContext";
 import api from "./services/api";
 import "./PanelAdmin.css";
@@ -12,7 +13,7 @@ const INITIAL_FORM = {
   direccion_envio: "",
 };
 
-function Pedidos() {
+function Pedidos({ cambiarVista }) {
   const { isAdmin, usuario } = useAuth();
   const [pedidos, setPedidos] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
@@ -46,6 +47,9 @@ function Pedidos() {
   const pedidosVisibles = isAdmin
     ? pedidos
     : pedidos.filter((item) => Number(item.id_usuario) === Number(usuario?.id));
+  const pedidosEntregados = pedidosVisibles.filter((item) => item.estado === "entregado").length;
+  const pedidosPendientes = pedidosVisibles.filter((item) => item.estado === "pendiente").length;
+  const totalPedidos = pedidosVisibles.reduce((acumulado, item) => acumulado + Number(item.total || 0), 0);
 
   const handleChange = ({ target }) => {
     setFormData((prev) => ({ ...prev, [target.name]: target.value }));
@@ -112,9 +116,38 @@ function Pedidos() {
               ? "Consulta, registra y modifica pedidos."
               : "Aqui se muestran las compras que ya fueron generadas desde tu carrito."}
           </p>
+          {!isAdmin && (
+            <button
+              type="button"
+              className="panelBackButton"
+              onClick={() => cambiarVista("Productos")}
+            >
+              Regresar a productos
+            </button>
+          )}
         </div>
         <span className="panelBadge">{pedidosVisibles.length} pedidos</span>
       </div>
+
+      {!isAdmin && (
+        <section className="panelResumenGrid">
+          <article className="panelResumenCard">
+            <span className="panelResumenLabel">Pedidos registrados</span>
+            <strong>{pedidosVisibles.length}</strong>
+            <p>Aqui puedes consultar todas las compras que ya fueron generadas desde tu carrito.</p>
+          </article>
+          <article className="panelResumenCard">
+            <span className="panelResumenLabel">Pendientes</span>
+            <strong>{pedidosPendientes}</strong>
+            <p>Tus compras en proceso apareceran aqui mientras avanzan de estado.</p>
+          </article>
+          <article className="panelResumenCard dark">
+            <span className="panelResumenLabel">Total acumulado</span>
+            <strong>${totalPedidos} MXN</strong>
+            <p>{pedidosEntregados} pedido{pedidosEntregados === 1 ? "" : "s"} entregado{pedidosEntregados === 1 ? "" : "s"} hasta ahora.</p>
+          </article>
+        </section>
+      )}
 
       {mensaje && <p className="mensajePanel">{mensaje}</p>}
       {!isAdmin && (
@@ -185,6 +218,12 @@ function Pedidos() {
       )}
 
       <article className="listadoCard">
+        <div className="listadoCardHeader">
+          <div>
+            <span className="listadoCardEyebrow">{isAdmin ? "Control de pedidos" : "Historial de compra"}</span>
+            <h3>{isAdmin ? "Pedidos registrados" : "Listado de pedidos"}</h3>
+          </div>
+        </div>
         <div className="tablaResponsive">
           <table className="tablaCrud">
             <thead>
@@ -224,5 +263,9 @@ function Pedidos() {
     </section>
   );
 }
+
+Pedidos.propTypes = {
+  cambiarVista: PropTypes.func.isRequired,
+};
 
 export default Pedidos;

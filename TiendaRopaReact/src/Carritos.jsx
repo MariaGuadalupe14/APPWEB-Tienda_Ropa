@@ -203,6 +203,7 @@ function Carritos() {
   const descripcion = isAdmin
     ? "Administra carritos y su detalle."
     : "Aqui se guardan los productos que vas agregando desde la tienda. Cuando estes lista, genera tu pedido desde este apartado.";
+  const totalPendiente = Number(carritoPendiente?.total || 0);
 
   return (
     <section className="panelAdmin">
@@ -213,6 +214,26 @@ function Carritos() {
         </div>
         <span className="panelBadge">{carritosVisibles.length} carritos</span>
       </div>
+
+      {!isAdmin && (
+        <section className="panelResumenGrid">
+          <article className="panelResumenCard">
+            <span className="panelResumenLabel">Carrito activo</span>
+            <strong>{carritoPendiente ? `#${carritoPendiente.id}` : "Sin carrito pendiente"}</strong>
+            <p>Tu carrito actual se actualiza cada vez que agregas productos desde la tienda.</p>
+          </article>
+          <article className="panelResumenCard">
+            <span className="panelResumenLabel">Productos agregados</span>
+            <strong>{detallesPendientes.length}</strong>
+            <p>Revisa aqui lo que ya tienes listo antes de convertirlo en pedido.</p>
+          </article>
+          <article className="panelResumenCard dark">
+            <span className="panelResumenLabel">Total estimado</span>
+            <strong>${totalPendiente} MXN</strong>
+            <p>Cuando todo este correcto, puedes finalizar la compra desde esta misma vista.</p>
+          </article>
+        </section>
+      )}
 
       {mensaje && <p className="mensajePanel">{mensaje}</p>}
       {!isAdmin && (
@@ -313,7 +334,12 @@ function Carritos() {
       )}
 
       <article className="listadoCard">
-        <h3>{isAdmin ? "Carritos" : "Resumen de mi carrito"}</h3>
+        <div className="listadoCardHeader">
+          <div>
+            <span className="listadoCardEyebrow">{isAdmin ? "Control principal" : "Vista general"}</span>
+            <h3>{isAdmin ? "Carritos" : "Resumen de mi carrito"}</h3>
+          </div>
+        </div>
         <div className="tablaResponsive">
           <table className="tablaCrud">
             <thead>
@@ -354,7 +380,12 @@ function Carritos() {
       </article>
 
       <article className="listadoCard">
-        <h3>{isAdmin ? "Detalle del carrito" : "Productos agregados"}</h3>
+        <div className="listadoCardHeader">
+          <div>
+            <span className="listadoCardEyebrow">{isAdmin ? "Detalle operativo" : "Tu seleccion"}</span>
+            <h3>{isAdmin ? "Detalle del carrito" : "Productos agregados"}</h3>
+          </div>
+        </div>
         <div className="tablaResponsive">
           <table className="tablaCrud">
             <thead>

@@ -42,49 +42,75 @@ function RegistrarUsuarios({ cambiarVista }) {
 
   return (
     <section className="authPage">
-      <div className="authCard wide">
-        <p className="authEyebrow">Nuevo usuario</p>
-        <h2>Crear cuenta</h2>
-        <form className="authForm twoColumns" onSubmit={handleSubmit}>
-          <label>
-            Nombre
-            <input name="nombre" value={formData.nombre} onChange={handleChange} required />
-          </label>
-          <label>
-            Telefono
-            <input name="telefono" value={formData.telefono} onChange={handleChange} required />
-          </label>
-          <label className="fullWidth">
-            Direccion
-            <input name="direccion" value={formData.direccion} onChange={handleChange} required />
-          </label>
-          <label>
-            Correo electronico
-            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
-          </label>
-          <label>
-            Password
-            <input type="password" name="password" value={formData.password} onChange={handleChange} required />
-          </label>
-          <label className="fullWidth">
-            Rol
-            <select name="rol" value={formData.rol} onChange={handleChange}>
-              <option value="cliente">Cliente</option>
-              <option value="admin">Admin</option>
-            </select>
-          </label>
+      <div className="authShell authShellWide">
+        <aside className="authIntro">
+          <span className="authPill">Nuevo usuario</span>
+          <p className="authEyebrow">Empieza tu experiencia</p>
+          <h2>Crear cuenta</h2>
+          <p className="authText">
+            Registra tus datos para explorar productos, guardar tu carrito y dar
+            seguimiento a tus compras con una experiencia mas comoda.
+          </p>
 
-          {mensaje && <p className="authMessage fullWidth">{mensaje}</p>}
-
-          <div className="authActions fullWidth">
-            <button type="submit" disabled={cargando}>
-              {cargando ? "Guardando..." : "Registrar"}
-            </button>
-            <button type="button" className="secondary" onClick={() => cambiarVista("Login")}>
-              Ir a login
-            </button>
+          <div className="authHighlights">
+            <article>
+              <strong>Compra con seguimiento</strong>
+              <span>Consulta pedidos y revisa tu carrito cuando quieras.</span>
+            </article>
+            <article>
+              <strong>Perfil listo para usar</strong>
+              <span>Tus datos quedan preparados para futuras compras.</span>
+            </article>
           </div>
-        </form>
+        </aside>
+
+        <div className="authCard wide">
+          <div className="authCardHeader">
+            <span className="authMiniTag">Registro</span>
+            <h3>Completa tus datos</h3>
+          </div>
+
+          <form className="authForm twoColumns" onSubmit={handleSubmit}>
+            <label>
+              Nombre
+              <input name="nombre" value={formData.nombre} onChange={handleChange} required />
+            </label>
+            <label>
+              Telefono
+              <input name="telefono" value={formData.telefono} onChange={handleChange} required />
+            </label>
+            <label className="fullWidth">
+              Direccion
+              <input name="direccion" value={formData.direccion} onChange={handleChange} required />
+            </label>
+            <label>
+              Correo electronico
+              <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+            </label>
+            <label>
+              Password
+              <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+            </label>
+            <label className="fullWidth">
+              Rol
+              <select name="rol" value={formData.rol} onChange={handleChange}>
+                <option value="cliente">Cliente</option>
+                <option value="admin">Admin</option>
+              </select>
+            </label>
+
+            {mensaje && <p className="authMessage fullWidth">{mensaje}</p>}
+
+            <div className="authActions fullWidth">
+              <button type="submit" disabled={cargando}>
+                {cargando ? "Guardando..." : "Registrar"}
+              </button>
+              <button type="button" className="secondary" onClick={() => cambiarVista("Login")}>
+                Ir a login
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </section>
   );
